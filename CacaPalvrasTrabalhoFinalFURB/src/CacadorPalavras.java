@@ -8,7 +8,7 @@ public class CacadorPalavras {
 }
 
 class CacaPalavras {
-    private static Scanner teclado = new Scanner(System.in);
+    private static Scanner scanner = new Scanner(System.in);
 
     private String[][] palavras;
     private char[][] mapa;
@@ -19,8 +19,33 @@ class CacaPalavras {
 
         palavrasEntrada(palavras);
         mapaEntrada(mapa);
+        mapaPesquisa(palavras, mapa);
 
-        int opcao;
+
+        boolean opcaoMenuSwitch = true;
+        int opcaoMenu;
+
+        do {
+            System.out.println("_____ Menu: Caça Palavras _____\n 1. Listar Palavras\n 2. Listar Mapa\n 3. Listar Respostas\n 4. Sair");
+            opcaoMenu = scanner.nextInt();
+
+            switch (opcaoMenu) {
+                case 1:
+                    palavrasImprimir(palavras);
+                    break;
+                case 2:
+                    mapaImprimir(mapa);
+                    break;
+                case 3:
+                    palavrasRespostas(palavras);
+                    break;
+                case 4:
+                    opcaoMenuSwitch = false;
+                    break;
+                default:System.out.println("Opção ERRADA, tente novamente!...");
+                    break;
+            }
+        } while (opcaoMenuSwitch);
 
     }
 
@@ -45,6 +70,26 @@ class CacaPalavras {
         mapa[ 9][ 0]='V';  mapa[ 9][ 1]='E';  mapa[ 9][ 2]='T';  mapa[ 9][ 3]='O';  mapa[ 9][ 4]='R';
     }
 
-    
+    public void palavrasImprimir(String[][] palavras) {
+        for (int i = 0; i < palavras.length; i++) {
+            System.out.println(palavras[i][0]);
+        }
+    }
+
+    public void mapaImprimir(char[][] mapa) {
+        for (char[] linha : mapa) {
+            for (char caractere : linha) {
+                System.out.print(caractere + " ");
+            }
+            System.out.println();
+        }
+    }
+
+    public void mapaPesquisa(String[][]palavras, char[][] mapa) {
+
+    }
+
+    public void palavrasRespostas(String[][] palavras) {
+    }
     
 }
