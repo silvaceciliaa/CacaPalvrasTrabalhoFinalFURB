@@ -1,26 +1,13 @@
 import java.util.Scanner;
-
 public class CacadorPalavras {
-
-    public static void main(String[] args) throws Exception {
-        new CacaPalavras();
-    }
-}
-
-class CacaPalavras {
-    private static Scanner scanner = new Scanner(System.in);
-
-    String palavras[][] = new String[5][2] ;
-    char mapa [][] = new char[10][5];
-
-    public CacaPalavras() {
-        palavras = new String[5][2];
-        mapa = new char[10][5];
-
+    public CacadorPalavras() {
+        Scanner scanner = new Scanner(System.in);
+         String palavras[][] = new String[5][2] ;
+         char mapa [][] = new char[10][5];
+        
         palavrasEntrada(palavras);
         mapaEntrada(mapa);
         mapaPesquisa(palavras, mapa);
-
 
         boolean opcaoMenuSwitch = true;
         int opcaoMenu;
@@ -46,7 +33,7 @@ class CacaPalavras {
                     break;
             }
         } while (opcaoMenuSwitch);
-
+        scanner.close();
     }
 
     private void palavrasEntrada(String[][] palavras){
@@ -173,4 +160,8 @@ private String inverterString(String palavra) {
     }
     return new String(palavraArray);
     }
-}
+
+    public static void main(String[] args) throws Exception {
+        new CacadorPalavras();
+    }
+}   
