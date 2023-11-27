@@ -76,7 +76,20 @@ class CacaPalavras {
         }
     }
 
+    public void palavrasRespostas(String[][] palavras) {
+        for(int i = 0; i < palavras.length; ++i) {
+            String achou = palavras[i][1];
+            if (achou == null) {
+                System.out.println("Palavra NÃO encontrada: " + palavras[i][0]);
+            } else {
+                System.out.println(palavras[i][1] + " - " + palavras[i][0]);
+            }
+        }
+
+    }
+
     public void mapaImprimir(char[][] mapa) {
+
         for (char[] linha : mapa) {
             for (char caractere : linha) {
                 System.out.print(caractere + " ");
@@ -85,11 +98,79 @@ class CacaPalavras {
         }
     }
 
-    public void mapaPesquisa(String[][]palavras, char[][] mapa) {
+   public void mapaPesquisa(String[][] palavras, char[][] mapa) {
+    for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
+        String palavra = palavras[palavraAtual][0];
+        String coordenadas = "";
 
-    }
+        coordenadas = buscarHorizontalmente(palavra, mapa);
+        if (!coordenadas.isEmpty()) {
+            palavras[palavraAtual][1] = coordenadas;
+            continue;
+        }
 
-    public void palavrasRespostas(String[][] palavras) {
+        coordenadas = buscarHorizontalmente(inverterString(palavra), mapa);
+        if (!coordenadas.isEmpty()) {
+            palavras[palavraAtual][1] = coordenadas;
+            continue;
+        }
+
+        coordenadas = buscarVerticalmente(palavra, mapa);
+        if (!coordenadas.isEmpty()) {
+            palavras[palavraAtual][1] = coordenadas;
+            continue;
+        }
+
+        coordenadas = buscarVerticalmente(inverterString(palavra), mapa);
+        if (!coordenadas.isEmpty()) {
+            palavras[palavraAtual][1] = coordenadas;
+        }
     }
-    
 }
+
+private String buscarHorizontalmente(String palavra, char[][] mapa) {
+    for (int linha = 0; linha < mapa.length; linha++) {
+        for (int coluna = 0; coluna < mapa[0].length - palavra.length() + 1; coluna++) {
+            if (verificarPalavra(palavra, linha, coluna, 0, 1, mapa)) {
+                return "[" + linha + "," + coluna + "]";
+            }
+        }
+    }
+    return "";
+}
+
+private String buscarVerticalmente(String palavra, char[][] mapa) {
+    for (int coluna = 0; coluna < mapa[0].length; coluna++) {
+        for (int linha = 0; linha < mapa.length - palavra.length() + 1; linha++) {
+            if (verificarPalavra(palavra, linha, coluna, 1, 0, mapa)) {
+                return "[" + linha + "," + coluna + "]";
+            }
+        }
+    }
+    return "";
+}
+
+private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) {
+    for (int i = 0; i < palavra.length(); i++) {
+        if (mapa[linha + i * incrementoLinha][coluna + i * incrementoColuna] != palavra.charAt(i)) {
+            return false;
+        }
+    }
+    return true;
+}
+
+private String inverterString(String palavra) {
+    char[] chars = palavra.toCharArray();
+    int i = 0;
+    int j = palavra.length() - 1;
+    while (i < j) {
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp;
+        i++;
+        j--;
+    }
+    return new String(chars);
+    }
+}
+
