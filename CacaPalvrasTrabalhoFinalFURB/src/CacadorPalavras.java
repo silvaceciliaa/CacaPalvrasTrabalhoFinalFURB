@@ -98,31 +98,31 @@ class CacaPalavras {
         }
     }
 
-   public void mapaPesquisa(String[][] palavras, char[][] mapa) {
+    public void mapaPesquisa(String[][] palavras, char[][] mapa) {
     for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
         String palavra = palavras[palavraAtual][0];
         String coordenadas = "";
 
         coordenadas = buscarHorizontalmente(palavra, mapa);
-        if (!coordenadas.isEmpty()) {
+        if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
             continue;
         }
 
         coordenadas = buscarHorizontalmente(inverterString(palavra), mapa);
-        if (!coordenadas.isEmpty()) {
+        if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
             continue;
         }
 
         coordenadas = buscarVerticalmente(palavra, mapa);
-        if (!coordenadas.isEmpty()) {
+        if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
             continue;
         }
 
         coordenadas = buscarVerticalmente(inverterString(palavra), mapa);
-        if (!coordenadas.isEmpty()) {
+        if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
         }
     }
@@ -151,8 +151,9 @@ private String buscarVerticalmente(String palavra, char[][] mapa) {
 }
 
 private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) {
-    for (int i = 0; i < palavra.length(); i++) {
-        if (mapa[linha + i * incrementoLinha][coluna + i * incrementoColuna] != palavra.charAt(i)) {
+    char[] palavraArray = palavra.toCharArray();
+    for (int i = 0; i < palavraArray.length; i++) {
+        if (mapa[linha + i * incrementoLinha][coluna + i * incrementoColuna] != palavraArray[i]) {
             return false;
         }
     }
@@ -160,17 +161,16 @@ private boolean verificarPalavra(String palavra, int linha, int coluna, int incr
 }
 
 private String inverterString(String palavra) {
-    char[] chars = palavra.toCharArray();
+    char[] palavraArray = palavra.toCharArray();
     int i = 0;
-    int j = palavra.length() - 1;
+    int j = palavraArray.length - 1;
     while (i < j) {
-        char temp = chars[i];
-        chars[i] = chars[j];
-        chars[j] = temp;
+        char temp = palavraArray[i];
+        palavraArray[i] = palavraArray[j];
+        palavraArray[j] = temp;
         i++;
         j--;
     }
-    return new String(chars);
+    return new String(palavraArray);
     }
 }
-
