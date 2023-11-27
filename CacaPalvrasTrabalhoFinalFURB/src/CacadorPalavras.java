@@ -27,6 +27,7 @@ class CacaPalavras {
 
         do {
             System.out.println("_____ Menu: Caça Palavras _____\n 1. Listar Palavras\n 2. Listar Mapa\n 3. Listar Respostas\n 4. Sair");
+            System.out.print("__ opção: ");
             opcaoMenu = scanner.nextInt();
 
             switch (opcaoMenu) {
