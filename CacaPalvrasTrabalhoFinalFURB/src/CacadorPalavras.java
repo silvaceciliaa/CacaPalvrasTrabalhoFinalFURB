@@ -10,8 +10,8 @@ public class CacadorPalavras {
 class CacaPalavras {
     private static Scanner scanner = new Scanner(System.in);
 
-    private String[][] palavras;
-    private char[][] mapa;
+    String palavras[][] = new String[5][2] ;
+    char mapa [][] = new char[10][5];
 
     public CacaPalavras() {
         palavras = new String[5][2];
