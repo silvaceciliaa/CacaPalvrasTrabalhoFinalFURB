@@ -78,23 +78,23 @@ public class CacadorPalavras {
 
     public void mapaImprimir(char[][] mapa) {
         for (int i = 0; i < mapa.length - 1; i++) {
-        System.out.print("---");
+        //System.out.print("---");
     }
     System.out.println();
     for (char linha = 0; linha < mapa.length; linha++) {
+         System.out.print("---------------------");
+         System.out.println(" ");
         for (char coluna = 0; coluna < mapa[linha].length; coluna++) {
             if (mapa[linha][coluna] < 10) {
                 System.out.print("|  " + mapa[linha][coluna] + " ");
-                //System.out.print("---");
            } else {
                 System.out.print("| " + mapa[linha][coluna] + " ");
-                //System.out.print("---");
            }
         }
         System.out.println("|");
     }
     for (int i = 0; i < mapa.length - 1; i++) {
-        System.out.print("---");
+        System.out.print("--");
     }
     System.out.println();
 }
