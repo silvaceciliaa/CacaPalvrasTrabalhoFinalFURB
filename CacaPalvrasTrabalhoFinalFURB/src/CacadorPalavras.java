@@ -90,14 +90,28 @@ class CacaPalavras {
     }
 
     public void mapaImprimir(char[][] mapa) {
-
-        for (char[] linha : mapa) {
-            for (char caractere : linha) {
-                System.out.print(caractere + " ");
-            }
-            System.out.println();
-        }
+        for (int i = 0; i < mapa.length - 1; i++) {
+        System.out.print("---");
     }
+    System.out.println();
+    for (char linha = 0; linha < mapa.length; linha++) {
+        for (char coluna = 0; coluna < mapa[linha].length; coluna++) {
+            if (mapa[linha][coluna] < 10) {
+                System.out.print("|  " + mapa[linha][coluna] + " ");
+                //System.out.print("---");
+           } else {
+                System.out.print("| " + mapa[linha][coluna] + " ");
+                //System.out.print("---");
+           }
+        }
+        System.out.println("|");
+    }
+    for (int i = 0; i < mapa.length - 1; i++) {
+        System.out.print("---");
+    }
+    System.out.println();
+}
+    
 
     public void mapaPesquisa(String[][] palavras, char[][] mapa) {
     for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
