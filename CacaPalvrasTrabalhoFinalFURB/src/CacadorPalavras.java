@@ -100,6 +100,10 @@ public class CacadorPalavras {
     
 
     public void mapaPesquisa(String[][] palavras, char[][] mapa) {
+        String textoStr = "texto";
+        char textoChar = textoStr.charAt(0);
+        int textoTamanho = textoStr.length();
+        
     for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
         String palavra = palavras[palavraAtual][0];
         String coordenadas = "";
