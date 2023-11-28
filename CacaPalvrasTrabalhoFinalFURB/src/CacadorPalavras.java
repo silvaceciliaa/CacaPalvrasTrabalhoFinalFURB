@@ -78,7 +78,6 @@ public class CacadorPalavras {
 
     public void mapaImprimir(char[][] mapa) {
         for (int i = 0; i < mapa.length - 1; i++) {
-        //System.out.print("---");
     }
     System.out.println();
     for (char linha = 0; linha < mapa.length; linha++) {
