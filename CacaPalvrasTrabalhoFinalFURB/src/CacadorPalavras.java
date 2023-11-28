@@ -1,26 +1,13 @@
 import java.util.Scanner;
-
 public class CacadorPalavras {
-
-    public static void main(String[] args) throws Exception {
-        new CacaPalavras();
-    }
-}
-
-class CacaPalavras {
-    private static Scanner scanner = new Scanner(System.in);
-
-    private String[][] palavras;
-    private char[][] mapa;
-
-    public CacaPalavras() {
-        palavras = new String[5][2];
-        mapa = new char[10][5];
-
+    public CacadorPalavras() {
+        Scanner scanner = new Scanner(System.in);
+         String palavras[][] = new String[5][2] ;
+         char mapa [][] = new char[10][5];
+        
         palavrasEntrada(palavras);
         mapaEntrada(mapa);
         mapaPesquisa(palavras, mapa);
-
 
         boolean opcaoMenuSwitch = true;
         int opcaoMenu;
@@ -47,7 +34,7 @@ class CacaPalavras {
                     break;
             }
         } while (opcaoMenuSwitch);
-
+        scanner.close();
     }
 
     private void palavrasEntrada(String[][] palavras){
@@ -94,11 +81,11 @@ class CacaPalavras {
     }
     System.out.println();
     for (char linha = 0; linha < mapa.length; linha++) {
-        System.out.print("---------------------");
-        System.out.println(" ");
+         System.out.print("---------------------");
+         System.out.println(" ");
         for (char coluna = 0; coluna < mapa[linha].length; coluna++) {
             if (mapa[linha][coluna] < 10) {
-                System.out.print("|  " + mapa[linha][coluna] + " "); 
+                System.out.print("|  " + mapa[linha][coluna] + " ");
            } else {
                 System.out.print("| " + mapa[linha][coluna] + " ");
            }
@@ -187,4 +174,8 @@ private String inverterString(String palavra) {
     }
     return new String(palavraArray);
     }
-}
+
+    public static void main(String[] args) throws Exception {
+        new CacadorPalavras();
+    }
+}   
