@@ -1,40 +1,21 @@
 import java.util.Scanner;
-
 public class CacadorPalavras {
-<<<<<<< Updated upstream
-
-    public static void main(String[] args) throws Exception {
-        new CacaPalavras();
-    }
-}
-
-class CacaPalavras {
-    private static Scanner scanner = new Scanner(System.in);
-
-    private String[][] palavras;
-    private char[][] mapa;
-
-    public CacaPalavras() {
-        palavras = new String[5][2];
-        mapa = new char[10][5];
-
-=======
+        
     public CacadorPalavras() {
         Scanner scanner = new Scanner(System.in);
-         String palavras[][] = new String[5][2];
+         String palavras[][] = new String[5][2] ;
          char mapa [][] = new char[10][5];
         
->>>>>>> Stashed changes
         palavrasEntrada(palavras);
         mapaEntrada(mapa);
         mapaPesquisa(palavras, mapa);
-
 
         boolean opcaoMenuSwitch = true;
         int opcaoMenu;
 
         do {
             System.out.println("_____ Menu: Caça Palavras _____\n 1. Listar Palavras\n 2. Listar Mapa\n 3. Listar Respostas\n 4. Sair");
+            System.out.print("__ opção: ");
             opcaoMenu = scanner.nextInt();
 
             switch (opcaoMenu) {
@@ -55,7 +36,7 @@ class CacaPalavras {
                     break;
             }
         } while (opcaoMenuSwitch);
-
+        scanner.close();
     }
 
     private void palavrasEntrada(String[][] palavras){
@@ -104,16 +85,29 @@ class CacaPalavras {
     
 
     public void mapaImprimir(char[][] mapa) {
-
-        for (char[] linha : mapa) {
-            for (char caractere : linha) {
-                System.out.print(caractere + " ");
-            }
-            System.out.println();
-        }
+        for (int i = 0; i < mapa.length - 1; i++) {
     }
-
+    System.out.println();
+    for (char linha = 0; linha < mapa.length; linha++) {
+         System.out.print("---------------------");
+         System.out.println(" ");
+        for (char coluna = 0; coluna < mapa[linha].length; coluna++) {
+            if (mapa[linha][coluna] < 10) {
+                System.out.print("|  " + mapa[linha][coluna] + " ");
+           } else {
+                System.out.print("| " + mapa[linha][coluna] + " ");
+           }
+        }
+        System.out.println("|");
+    }
+    for (int i = 0; i < mapa.length - 1; i++) {
+        System.out.print("--");
+    }
+    System.out.println();
+}
+    
 public void mapaPesquisa(String[][] palavras, char[][] mapa) {
+ 
     for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
         String palavra = palavras[palavraAtual][0];
         String coordenadas = "";
@@ -206,4 +200,8 @@ private String inverterString(String palavra) {
     }
     return new String(palavraArray);
     }
-}
+
+    public static void main(String[] args) throws Exception {
+        new CacadorPalavras();
+    }
+}   
