@@ -72,17 +72,10 @@ public class CacadorPalavras {
             if (achou == null) {
                 System.out.println("Palavra NÃO encontrada: " + palavras[i][0]);
             } else {
-                String palavra = palavras[i][0];
-                String coordenadas = achou;
-                int linhaInicial = Integer.parseInt(coordenadas.substring(1, coordenadas.indexOf(',')));
-                int colunaInicial = Integer.parseInt(coordenadas.substring(coordenadas.indexOf(',') + 1, coordenadas.indexOf(']')));
-                System.out.println("Palavra '" + palavra + "' encontrada na posição inicial: [" + linhaInicial + "," + colunaInicial + "]");
+                System.out.println(palavras[i][1] + " - " + palavras[i][0]);
             }
         }
     }
-    
-    
-    
 
     public void mapaImprimir(char[][] mapa) {
         for (int i = 0; i < mapa.length - 1; i++) {
@@ -136,13 +129,10 @@ public void mapaPesquisa(String[][] palavras, char[][] mapa) {
 }
 
 
-
-
 private String buscarHorizontalmente(String palavra, char[][] mapa, boolean invertida) {
     for (int linha = 0; linha < mapa.length; linha++) {
         for (int coluna = 0; coluna < mapa[0].length - palavra.length() + 1; coluna++) {
-            String tempWord = concaChar(mapa[linha], coluna, palavra.length());
-            if (tempWord.equals(palavra)) {
+            if (verificarPalavra(palavra, linha, coluna, 0, 1, mapa)) {
                 if (invertida) {
                     coluna = coluna + palavra.length() - 1;
                 }
@@ -152,6 +142,7 @@ private String buscarHorizontalmente(String palavra, char[][] mapa, boolean inve
     }
     return "";
 }
+
 
 private String buscarVerticalmente(String palavra, char[][] mapa, boolean invertida) {
     for (int coluna = 0; coluna < mapa[0].length; coluna++) {
@@ -165,16 +156,6 @@ private String buscarVerticalmente(String palavra, char[][] mapa, boolean invert
         }
     }
     return "";
-}
-
-private String concaChar(char[] linha, int initAt, int wordLen) {
-    char[] newWord = new char[wordLen];
-
-    for (int coluna = initAt; coluna < initAt + wordLen; coluna++) {
-        newWord[coluna - initAt] = linha[coluna];
-    }
-
-    return new String(newWord);
 }
 
 private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) {
