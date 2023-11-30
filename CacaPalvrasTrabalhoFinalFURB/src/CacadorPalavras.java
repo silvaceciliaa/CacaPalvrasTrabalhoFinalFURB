@@ -1,40 +1,21 @@
 import java.util.Scanner;
-
 public class CacadorPalavras {
-<<<<<<< Updated upstream
-
-    public static void main(String[] args) throws Exception {
-        new CacaPalavras();
-    }
-}
-
-class CacaPalavras {
-    private static Scanner scanner = new Scanner(System.in);
-
-    private String[][] palavras;
-    private char[][] mapa;
-
-    public CacaPalavras() {
-        palavras = new String[5][2];
-        mapa = new char[10][5];
-
-=======
+        
     public CacadorPalavras() {
         Scanner scanner = new Scanner(System.in);
-         String palavras[][] = new String[5][2];
+         String palavras[][] = new String[5][2] ;
          char mapa [][] = new char[10][5];
         
->>>>>>> Stashed changes
         palavrasEntrada(palavras);
         mapaEntrada(mapa);
         mapaPesquisa(palavras, mapa);
-
 
         boolean opcaoMenuSwitch = true;
         int opcaoMenu;
 
         do {
             System.out.println("_____ Menu: Caça Palavras _____\n 1. Listar Palavras\n 2. Listar Mapa\n 3. Listar Respostas\n 4. Sair");
+            System.out.print("__ opção: ");
             opcaoMenu = scanner.nextInt();
 
             switch (opcaoMenu) {
@@ -55,7 +36,7 @@ class CacaPalavras {
                     break;
             }
         } while (opcaoMenuSwitch);
-
+        scanner.close();
     }
 
     private void palavrasEntrada(String[][] palavras){
@@ -91,29 +72,35 @@ class CacaPalavras {
             if (achou == null) {
                 System.out.println("Palavra NÃO encontrada: " + palavras[i][0]);
             } else {
-                String palavra = palavras[i][0];
-                String coordenadas = achou;
-                int linhaInicial = Integer.parseInt(coordenadas.substring(1, coordenadas.indexOf(',')));
-                int colunaInicial = Integer.parseInt(coordenadas.substring(coordenadas.indexOf(',') + 1, coordenadas.indexOf(']')));
-                System.out.println("Palavra '" + palavra + "' encontrada na posição inicial: [" + linhaInicial + "," + colunaInicial + "]");
+                System.out.println(palavras[i][1] + " - " + palavras[i][0]);
             }
         }
     }
-    
-    
-    
 
     public void mapaImprimir(char[][] mapa) {
-
-        for (char[] linha : mapa) {
-            for (char caractere : linha) {
-                System.out.print(caractere + " ");
-            }
-            System.out.println();
-        }
+        for (int i = 0; i < mapa.length - 1; i++) {
     }
-
+    System.out.println();
+    for (char linha = 0; linha < mapa.length; linha++) {
+         System.out.print("---------------------");
+         System.out.println(" ");
+        for (char coluna = 0; coluna < mapa[linha].length; coluna++) {
+            if (mapa[linha][coluna] < 10) {
+                System.out.print("|  " + mapa[linha][coluna] + " ");
+           } else {
+                System.out.print("| " + mapa[linha][coluna] + " ");
+           }
+        }
+        System.out.println("|");
+    }
+    for (int i = 0; i < mapa.length - 1; i++) {
+        System.out.print("--");
+    }
+    System.out.println();
+}
+    
 public void mapaPesquisa(String[][] palavras, char[][] mapa) {
+ 
     for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
         String palavra = palavras[palavraAtual][0];
         String coordenadas = "";
@@ -142,13 +129,10 @@ public void mapaPesquisa(String[][] palavras, char[][] mapa) {
 }
 
 
-
-
 private String buscarHorizontalmente(String palavra, char[][] mapa, boolean invertida) {
     for (int linha = 0; linha < mapa.length; linha++) {
         for (int coluna = 0; coluna < mapa[0].length - palavra.length() + 1; coluna++) {
-            String tempWord = concaChar(mapa[linha], coluna, palavra.length());
-            if (tempWord.equals(palavra)) {
+            if (verificarPalavra(palavra, linha, coluna, 0, 1, mapa)) {
                 if (invertida) {
                     coluna = coluna + palavra.length() - 1;
                 }
@@ -158,6 +142,7 @@ private String buscarHorizontalmente(String palavra, char[][] mapa, boolean inve
     }
     return "";
 }
+
 
 private String buscarVerticalmente(String palavra, char[][] mapa, boolean invertida) {
     for (int coluna = 0; coluna < mapa[0].length; coluna++) {
@@ -171,16 +156,6 @@ private String buscarVerticalmente(String palavra, char[][] mapa, boolean invert
         }
     }
     return "";
-}
-
-private String concaChar(char[] linha, int initAt, int wordLen) {
-    char[] newWord = new char[wordLen];
-
-    for (int coluna = initAt; coluna < initAt + wordLen; coluna++) {
-        newWord[coluna - initAt] = linha[coluna];
-    }
-
-    return new String(newWord);
 }
 
 private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) {
@@ -206,4 +181,8 @@ private String inverterString(String palavra) {
     }
     return new String(palavraArray);
     }
-}
+
+    public static void main(String[] args) throws Exception {
+        new CacadorPalavras();
+    }
+}   
