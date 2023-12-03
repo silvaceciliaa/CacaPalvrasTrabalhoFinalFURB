@@ -101,27 +101,26 @@ public class CacadorPalavras {
     
 public void mapaPesquisa(String[][] palavras, char[][] mapa) {
  
-    for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) {
-        String palavra = palavras[palavraAtual][0];
-        String coordenadas = "";
+    for (int palavraAtual = 0; palavraAtual < palavras.length; palavraAtual++) { //for para percorrer a array de palavras
+        String palavra = palavras[palavraAtual][0]; // a string palavra recebe o número da palavra que está sendo percorrida atualmente
+        String coordenadas = ""; // variável nula
 
-        coordenadas = buscarHorizontalmente(palavra, mapa, false);
+        coordenadas = buscarHorizontalmente(palavra, mapa, false); // coordenadas recebe o valor retornado de buscar horizontalmente
+        if (!coordenadas.equals("")) { // se coordenadas é diferente de vazio
+            palavras[palavraAtual][1] = coordenadas; // então na segunda posição de palavras vai ficar gravado onde foi encontrada a palavra que está sendo percorrido atualmente
+        }
+
+        coordenadas = buscarHorizontalmente(inverterString(palavra), mapa, true); // coordenadas recebe o valor retornado de buscar horizontalmente mas dessa vez das palavras que estão inversas
         if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
         }
 
-        coordenadas = buscarHorizontalmente(inverterString(palavra), mapa, true);
-
+        coordenadas = buscarVerticalmente(palavra, mapa, false);  // coordenadas recebe o valor retornado de buscar verticalmente
         if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
         }
 
-        coordenadas = buscarVerticalmente(palavra, mapa, false);
-        if (!coordenadas.equals("")) {
-            palavras[palavraAtual][1] = coordenadas;
-        }
-
-        coordenadas = buscarVerticalmente(inverterString(palavra), mapa, true);
+        coordenadas = buscarVerticalmente(inverterString(palavra), mapa, true); // coordenadas recebe o valor retornado de buscar verticalmente mas dessa vez das palavras que estão inversas
         if (!coordenadas.equals("")) {
             palavras[palavraAtual][1] = coordenadas;
         }
@@ -129,24 +128,24 @@ public void mapaPesquisa(String[][] palavras, char[][] mapa) {
 }
 
 
-private String buscarHorizontalmente(String palavra, char[][] mapa, boolean invertida) {
-    for (int linha = 0; linha < mapa.length; linha++) {
-        for (int coluna = 0; coluna < mapa[0].length - palavra.length() + 1; coluna++) {
-            if (verificarPalavra(palavra, linha, coluna, 0, 1, mapa)) {
-                if (invertida) {
-                    coluna = coluna + palavra.length() - 1;
+private String buscarHorizontalmente(String palavra, char[][] mapa, boolean invertida) { // o método retorna uma string, que vai ser guardada futuramente em coordenadas
+    for (int linha = 0; linha < mapa.length; linha++) { // percorre as linhas do mapa
+        for (int coluna = 0; coluna < mapa[0].length - palavra.length() + 1; coluna++) { // percorre as colunas da matriz e retorna o número de colunas na primeira linha
+            if (verificarPalavra(palavra, linha, coluna, 0, 1, mapa)) { //  essa função é responsável por verificar se a palavra pode ser encontrada na posição atual (linha, coluna) no mapa
+                if (invertida) { // verifica se a palavra está invertida
+                    coluna = coluna + palavra.length() - 1; // guarda a coluna na qual a palavra foi achada
                 }
-                return "[" + linha + "," + coluna + "]";
+                return "[" + linha + "," + coluna + "]"; // retorna a linha e a coluna em que a palavra foi achada
             }
         }
     }
-    return "";
+    return ""; // se a palavra não foi achada, retorna vazio
 }
 
 
 private String buscarVerticalmente(String palavra, char[][] mapa, boolean invertida) {
-    for (int coluna = 0; coluna < mapa[0].length; coluna++) {
-        for (int linha = 0; linha < mapa.length - palavra.length() + 1; linha++) {
+    for (int coluna = 0; coluna < mapa[0].length; coluna++) { // percorre primeiro as colunas        
+        for (int linha = 0; linha < mapa.length - palavra.length() + 1; linha++) { // percorre as linhas
             if (verificarPalavra(palavra, linha, coluna, 1, 0, mapa)) {
                 if (invertida) {
                     linha = linha + palavra.length() - 1;
@@ -158,28 +157,28 @@ private String buscarVerticalmente(String palavra, char[][] mapa, boolean invert
     return "";
 }
 
-private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) {
-    char[] palavraArray = palavra.toCharArray();
-    for (int i = 0; i < palavraArray.length; i++) {
-        if (mapa[linha + i * incrementoLinha][coluna + i * incrementoColuna] != palavraArray[i]) {
-            return false;
+private boolean verificarPalavra(String palavra, int linha, int coluna, int incrementoLinha, int incrementoColuna, char[][] mapa) { // verifica se a palavra pode se encontrada a partir de uma determinada posição, apenas retorna que sim ou não
+    char[] palavraArray = palavra.toCharArray(); // transforma a string palavra em um array (vetor) de caracteres para facilitar a comparação de caracteres iguais
+    for (int i = 0; i < palavraArray.length; i++) { // loop que percorre cada caractere na palavra buscada na matriz
+        if (mapa[linha + i * incrementoLinha][coluna + i * incrementoColuna] != palavraArray[i]) { // verifica se cada caractere que está sendo verificado agora é diferente do caractere correspondente na palavra verificada
+            return false; // se um caractere não corresponder ao caractere correspondente na palavra sendo verificada, o método retorna falso
         }
     }
-    return true;
+    return true; // se todos os caracteres forem encontrados na posição atual e na direção específica, o método retorna true
 }
 
-private String inverterString(String palavra) {
-    char[] palavraArray = palavra.toCharArray();
-    int i = 0;
-    int j = palavraArray.length - 1;
-    while (i < j) {
-        char temp = palavraArray[i];
+private String inverterString(String palavra) { // recebe uma string chamada palavra como argumento
+    char[] palavraArray = palavra.toCharArray(); // a string recebida como argumento, palavra, é convertida para um array de caracteres, permitindo o acesso a cada caractere individual
+    int i = 0; // i começa do ínicio da array
+    int j = palavraArray.length - 1; // j começa do final da array
+    while (i < j) { // loop que continuará a executar até quando o índice de i for menor que o índice de j
+        char temp = palavraArray[i]; 
         palavraArray[i] = palavraArray[j];
-        palavraArray[j] = temp;
+        palavraArray[j] = temp; // os caracteres nas posições i e j são trocados. O caractere na posição i é armazenado em tem, depois o caractere na posição j é colocado na posição i e o o caractere em temp é colocado em j
         i++;
-        j--;
+        j--; // [indices sendo incrementados e decrementados para que o loop prossiga na iteração
     }
-    return new String(palavraArray);
+    return new String(palavraArray); // nova string que recebe o valor da string invertida contida no array palavraArray, este é o valor retornado do método
     }
 
     public static void main(String[] args) throws Exception {
